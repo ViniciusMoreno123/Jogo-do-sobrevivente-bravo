@@ -1,0 +1,33 @@
+                                                                         Jogo do sobrevivente bravo
+
+Personagens:"PC"Cleitinho,"NPC"ZombieChato
+
+Objetivo do jogo:Chegar até a casa vivo,humano e libertar a cura para a humanidade 
+
+Regras:
+Se você atirar no zumbi ele morre,se o zumbi te alcançar você perde uma vida
+se você perder todas as vidas você vira chato(zumbi).
+Toda vez que você atira você perde uma bala.
+Toda vez que você pega uma munição você ganha 10 balas.
+Quando você chegar na pontuação 30 você chega na casa(ganha o jogo).
+
+Equilíbrio:
+Você perde munição atirando, mas recupera conseguindo munições durante o jogo
+
+adaptabilidade:
+Zumbis sofrem mutações que podem ficar mais rapidos e mais fortes
+
+
+Elementos do acaso:
+Munição
+Posição do zumbi
+
+
+Feedback:
+O tempo em que ele ira sobreviver
+Sistema de pontuação
+Sistema de vidas
+
+Historia:
+Nesse mundo um cientista com ideias loucas acaba deixando um de seus projetos vazar ao ar livre,e nesse projeto havia um efeito que acabou transformando 80% da humanidade em zumbi.
+Nesse jogo você é um sobrevivente que está se protegendo tentando chegar a uma casa segura, e que também nessa casa haverá uma cura, se voce conseguir libertar a cura você ira salvar não so a si mesmo, mas a humanidade em si também
