@@ -13,6 +13,13 @@ var estadoTristeza = 1;
 var estadoVidas = 2;
 var estadoFelicidade = 3;
 var estado = estadoPlay;
+var pontos = 0;
+var vidas = 3;
+var explosao, felicidade, tristeza;
+var somtristeza = false;
+var somFelicidade = false;
+var final;
+
 
 
 
@@ -25,6 +32,10 @@ function preload(){
   coracao3 = loadImage("/assets/heart_3.png");
   coracao2 = loadImage("/assets/heart_2.png");
   zumbiImg = loadImage("/assets/zombie.png");
+  explosao = loadSound("/assets/explosion.mp3");
+  felicidade = loadSound("/assets/win.mp3");
+  tristeza = loadSound("/assets/lose.mp3");
+  final = loadImage("/assets/casa.webp");
 }
 
 function setup() {
@@ -32,6 +43,7 @@ createCanvas(windowWidth,windowHeight);
 
 Fundo = createSprite(width/2,height/2);
 Fundo.addImage("Fundo",imagemDeFundo);
+Fundo.addImage("Fim",final);
 
 vida1 = createSprite(width-150,40,20,20);
 vida2 = createSprite(width-100,40,20,20);
@@ -58,6 +70,8 @@ player = createSprite(width-1150,height-300);
 player.addAnimation("animationplayer",playerImg);
 player.addAnimation("balado",Baladocanhao);
 player.scale = 0.7
+player.debug = false;
+player.setCollider("rectangle",0,0,300,300);
 
 }
 
@@ -78,15 +92,23 @@ if(keyWentDown("SPACE")){
    municao.velocityX = 20;
    grupobaladao.add(municao);
    balado -= 1;
+   explosao.play();
 }
+
 if(keyWentUp("SPACE")){
    player.changeAnimation("animationplayer");
 }
-
+if(keyIsDown(RIGHT_ARROW)){
+    player.x += 30;
+   }
+   if(keyIsDown(LEFT_ARROW)){
+    player.x -= 30;
+   }
 if(grupodezumbi.isTouching(player)){
    for(var i = 0;i <grupodezumbi.length;i++){
     if(grupodezumbi[i].isTouching(player)){
     grupodezumbi[i].destroy();
+    vidas -=1;
     }
 }
 
@@ -96,6 +118,7 @@ if(grupodezumbi.isTouching(player)){
      if(grupodezumbi[i].isTouching(grupobaladao)){
      grupodezumbi[i].destroy();
      grupobaladao.destroyEach();
+     pontos += 2;
      }
  
  
@@ -104,34 +127,86 @@ if(grupodezumbi.isTouching(player)){
 }
 if(balado === 0){
   estado = estadoTristeza;
+  tristeza.play();
 }
 grupinhoChato();
 }
+if(vidas ===3){
+   vida1.visible = false;
+   vida2.visible = false;
+   vida3.visible = true;
+}
+if(vidas ===2){
+    vida1.visible = false;
+    vida2.visible = true;
+    vida3.visible = false;
+ }
+ if(vidas ===1){
+    vida1.visible = true;
+    vida2.visible = false;
+    vida3.visible = false;
+ }
+ if(vidas === 0){
+     estado = estadoVidas;
+     if(!somtristeza && !tristeza.isPlaying()){
+        tristeza.playMode("untilDone");
+        tristeza.play();
+        somtristeza = true;
+     }
+   
+     vida1.visible = false;
+
+ }
+ if(pontos === 100){
+   estado = estadoFelicidade
+   if(!somFelicidade && !felicidade.isPlaying()){
+    felicidade.playMode("untilDone");
+    felicidade.play();
+    somFelicidade = true;
+ }
+   
+ }
 drawSprites();
+textSize(20);
+fill("red");
+text("Balas = "+balado,width-210,height/2-250);
+text("Pontuação ="+pontos,width-200,height/2-220);
 if(estado === estadoVidas){
-   text("Poxa!Pelo visto a tristeza visitou alguém",400,400);
+    textSize(40);
+   text("Poxa!Pelo visto a tristeza visitou alguém",550,600);
    grupodezumbi.destroyEach();
    player.destroy();
+   
+   
 }else if(estado === estadoFelicidade){
-   text("Boa!Você sobreviveu e conseguiu encontrar a cura para a humanidade",400,400);
+    Fundo.changeImage("Fim",final);
+    Fundo.scale = 2.5;
+   textSize(40)
+   fill("black");
+   text("Boa!Você sobreviveu e conseguiu encontrar a cura para a humanidade",350,600);
    grupodezumbi.destroyEach();
-   player.destroy();
+   
+   
+  
 }else if(estado === estadoTristeza){
-   text("Não podes deixar acabar a bala no meio da guerra patrão",400,400);
+    
+    textSize(40);
+   text("Não podes deixar acabar a bala no meio da guerra patrão",400,600);
    grupodezumbi.destroyEach();
    player.destroy();
    grupobaladao.destroyEach();
+  
 }
 
 }
 function grupinhoChato(){
    if(frameCount%50 ===0){
-   zumbi = createSprite(random(500,1100),random(100,500),40,40);
+   zumbi = createSprite(random(800,1500),random(100,500),40,40);
    zumbi.addImage(zumbiImg);
    zumbi.velocityX = -3;
    zumbi.scale = 0.20;
    zumbi.lifetime = 400;
-   zumbi.debug = true;
+   zumbi.debug = false;
    zumbi.setCollider("circle",0,0,250);
    grupodezumbi.add(zumbi);
    }
