@@ -25,17 +25,17 @@ var final;
 
 
 function preload(){
-  imagemDeFundo = loadImage("/assets/bg.jpeg");
-  playerImg = loadAnimation("/assets/shooter_2.png");
-  Baladocanhao = loadAnimation("/assets/shooter_3.png");
-  coracao1 = loadImage("/assets/heart_1.png");
-  coracao3 = loadImage("/assets/heart_3.png");
-  coracao2 = loadImage("/assets/heart_2.png");
-  zumbiImg = loadImage("/assets/zombie.png");
-  explosao = loadSound("/assets/explosion.mp3");
-  felicidade = loadSound("/assets/win.mp3");
-  tristeza = loadSound("/assets/lose.mp3");
-  final = loadImage("/assets/casa.webp");
+  imagemDeFundo = loadImage("./assets/bg.jpeg");
+  playerImg = loadAnimation("./assets/shooter_2.png");
+  Baladocanhao = loadAnimation("./assets/shooter_3.png");
+  coracao1 = loadImage("./assets/heart_1.png");
+  coracao3 = loadImage("./assets/heart_3.png");
+  coracao2 = loadImage("./assets/heart_2.png");
+  zumbiImg = loadImage("./assets/zombie.png");
+  explosao = loadSound("./assets/explosion.mp3");
+  felicidade = loadSound("./assets/win.mp3");
+  tristeza = loadSound("./assets/lose.mp3");
+  final = loadImage("./assets/casa.webp");
 }
 
 function setup() {
